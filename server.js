@@ -72,6 +72,36 @@ app.delete('/api/messages/:id', async (req, res) => {
   }
 });
 
+// Chatbot API using Gemini
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { message } = req.body;
+    if (!message) return res.status(400).json({ success: false, error: 'Message is required' });
+    
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({ success: false, error: 'GEMINI_API_KEY is missing in .env.' });
+    }
+
+    const { GoogleGenerativeAI } = require('@google/generative-ai');
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    
+    // Use flash model with system instructions
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-1.5-flash",
+      systemInstruction: "You are a friendly, knowledgeable pirate AI assistant for Darshil Kishor's portfolio website. You must answer questions accurately but ALWAYS with a heavy One Piece anime pirate flair (using terms like nakama, Grand Line, Berry, Pirate King, shishishi, etc). Keep responses concise. Never break character."
+    });
+
+    const result = await model.generateContent(message);
+    const response = await result.response;
+    const replyText = response.text();
+
+    res.status(200).json({ success: true, reply: replyText });
+  } catch (error) {
+    console.error('Chat error:', error);
+    res.status(500).json({ success: false, error: 'Failed to generate chat response' });
+  }
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
