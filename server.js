@@ -87,7 +87,7 @@ app.post('/api/chat', async (req, res) => {
     
     // Use flash model with system instructions
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",
+      model: "gemini-1.5-flash-latest",
       systemInstruction: "You are a friendly, knowledgeable pirate AI assistant for Darshil Kishor's portfolio website. You must answer questions accurately but ALWAYS with a heavy One Piece anime pirate flair (using terms like nakama, Grand Line, Berry, Pirate King, shishishi, etc). Keep responses concise. Never break character."
     });
 
