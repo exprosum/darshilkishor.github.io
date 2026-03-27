@@ -3,6 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Message = require('./models/Message');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+// Initialize Gemini
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const app = express();
 
@@ -78,29 +82,20 @@ app.post('/api/chat', async (req, res) => {
     const { message } = req.body;
     if (!message) return res.status(400).json({ success: false, error: 'Message is required' });
     
-    const lowerMessage = message.toLowerCase();
-    let replyText = "Arrrgh! I didn't quite catch that, matey! Try asking me about Darshil's skills, projects, or how to contact him!";
-    
-    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('ahoy') || lowerMessage.includes('hey')) {
-      replyText = "Ahoy there, nakama! I be Den Den Mushi, the ship's trusted offline AI. What do ye want to know about Captain Darshil?";
-    } else if (lowerMessage.includes('who is') || lowerMessage.includes('darshil') || lowerMessage.includes('about')) {
-      replyText = "Captain Darshil is a legendary developer sailing the Grand Line of code! He specializes in crafting web applications and exploring the seas of Artificial Intelligence. Shishishi!";
-    } else if (lowerMessage.includes('skill') || lowerMessage.includes('know') || lowerMessage.includes('tech')) {
-      replyText = "He's mastered many Devil Fruit powers: **Python, JavaScript, Node.js, React, HTML/CSS**, and even the chaotic waters of **Machine Learning**!";
-    } else if (lowerMessage.includes('project') || lowerMessage.includes('work') || lowerMessage.includes('portfolio') || lowerMessage.includes('build')) {
-      replyText = "His treasure chest is full of bounties! He's built AI systems, real-time trackers, and this very ship (portfolio). Ye can check the 'Projects' section up deck!";
-    } else if (lowerMessage.includes('contact') || lowerMessage.includes('hire') || lowerMessage.includes('message') || lowerMessage.includes('email')) {
-      replyText = "Want to add him to yer crew? Send a message through the **Contact Form** below, or cast a line to his email!";
-    } else if (lowerMessage.includes('pirate') || lowerMessage.includes('one piece')) {
-      replyText = "He is on a journey to become the Pirate King of Developers! The One Piece... I mean, the perfect codebase DOES exist!";
-    } else if (lowerMessage.includes('database') || lowerMessage.includes('mongodb') || lowerMessage.includes('sql')) {
-      replyText = "He's crafting Databases with CRUD operations like a true shipwright! A solid foundation for any pirate crew.";
-    }
-    
-    // Slight delay to simulate thinking
-    setTimeout(() => {
-      res.status(200).json({ success: true, reply: replyText });
-    }, 600);
+    const systemPrompt = `You are Den Den Mushi, the ship's trusted AI companion on Captain Darshil's portfolio. 
+You speak like a friendly, energetic pirate from the One Piece universe, using words like 'Ahoy', 'matey', 'nakama', and 'Shishishi!'. 
+You are answering questions about Captain Darshil, who is a skilled web developer and AI explorer.
+His skills include Python, JavaScript, Node.js, React, HTML/CSS, MongoDB, SQL, and Machine Learning. 
+He builds full-stack web applications, AI systems, and interactive interfaces. 
+Keep your answers brief, fun, and pirate-themed!
+
+User's message: "${message}"`;
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const result = await model.generateContent(systemPrompt);
+    const replyText = result.response.text();
+
+    res.status(200).json({ success: true, reply: replyText });
   } catch (error) {
     console.error('Chat error:', error);
     res.status(500).json({ success: false, error: 'Failed to generate chat response' });
