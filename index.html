@@ -698,48 +698,74 @@
 
     /* ── SKILLS ── */
     #skills {
-      background: linear-gradient(160deg, var(--deep-ocean) 0%, var(--ocean) 50%, #1e5f7a 100%);
+      background: linear-gradient(180deg, #051a1a 0%, #0a2e2e 40%, #0d4040 70%, #115252 100%);
       position: relative;
       overflow: hidden;
     }
 
-    /* Grid map overlay */
+    /* Wave top border */
+    #skills::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath d='M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 L0,0 Z' fill='%23fdf6e3'/%3E%3C/svg%3E") no-repeat center;
+      background-size: cover;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Radial teal glow at center */
     #skills::after {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.025) 60px, rgba(255,255,255,0.025) 61px),
-        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.025) 60px, rgba(255,255,255,0.025) 61px);
+      background: radial-gradient(ellipse 70% 50% at 50% 80%, rgba(0, 180, 150, 0.12) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Floating pirate elements */
+    /* Floating decorations (reused floatDeco animation) */
     .skills-float {
       position: absolute;
-      opacity: 0.08;
+      opacity: 0.06;
       user-select: none;
       pointer-events: none;
       animation: floatDeco 8s ease-in-out infinite;
       z-index: 0;
       font-size: clamp(60px, 8vw, 110px);
     }
-    .skills-float-1 { top: 5%; left: 3%; animation-delay: 0s; }
-    .skills-float-2 { top: 10%; right: 5%; animation-delay: -2.5s; font-size: 80px; }
-    .skills-float-3 { bottom: 10%; left: 5%; animation-delay: -4s; font-size: 70px; }
-    .skills-float-4 { bottom: 5%; right: 3%; animation-delay: -1.5s; }
-    .skills-float-5 { top: 45%; left: 48%; animation-delay: -3s; font-size: 60px; opacity: 0.04; }
+    .skills-float-1 { top: 15%; left: 3%; animation-delay: 0s; }
+    .skills-float-2 { top: 20%; right: 5%; animation-delay: -2.5s; font-size: 80px; }
+    .skills-float-3 { bottom: 15%; left: 5%; animation-delay: -4s; font-size: 70px; }
+    .skills-float-4 { bottom: 10%; right: 4%; animation-delay: -1.5s; }
+    .skills-float-5 { top: 50%; left: 46%; animation-delay: -3s; font-size: 55px; opacity: 0.03; }
+
+    /* Rising bubble animation */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 210, 180, 0.15);
+      border: 1px solid rgba(0, 210, 180, 0.3);
+      animation: riseUp linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes riseUp {
+      0%   { transform: translateY(0) scale(1); opacity: 0.6; }
+      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+    }
 
     #skills .section-inner {
       position: relative;
       z-index: 1;
+      padding-top: 60px;
     }
-
-    /* Section label/title override for dark bg */
-    #skills .section-title {
-      color: white;
-    }
+    #skills .section-title { color: #7ee8d6; }
+    #skills .section-label { color: rgba(126, 232, 214, 0.7); }
+    #skills .section-label::before { background: rgba(126, 232, 214, 0.5); }
 
     .skills-grid {
       display: grid;
@@ -748,14 +774,14 @@
     }
 
     .skill-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(232, 184, 75, 0.25);
+      background: rgba(0, 80, 70, 0.35);
+      border: 1px solid rgba(0, 200, 160, 0.3);
       border-radius: 12px;
       padding: 28px;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
     }
 
     .skill-card::before {
@@ -773,9 +799,9 @@
 
     .skill-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      border-color: rgba(232, 184, 75, 0.6);
-      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 30px rgba(0, 200, 160, 0.3), 0 20px 40px rgba(0,0,0,0.4);
+      border-color: rgba(0, 210, 180, 0.7);
+      background: rgba(0, 100, 85, 0.4);
     }
 
     .skill-card:hover::before {
@@ -791,7 +817,7 @@
       font-family: 'Cinzel', serif;
       font-size: 15px;
       font-weight: 700;
-      color: var(--gold-light);
+      color: #7ee8d6;
       margin-bottom: 8px;
     }
 
@@ -804,9 +830,17 @@
 
     .skill-bar {
       height: 4px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 210, 180, 0.12);
       border-radius: 2px;
       overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #00c896, #7ee8d6);
+      animation: fillBar 1.5s ease forwards;
+      transform-origin: left;
+      transform: scaleX(0);
     }
 
     .skill-fill {
@@ -2163,6 +2197,24 @@
         if (e.key === "Enter") sendMessage();
       });
     });
+  </script>
+  <!-- Bubble spawner for #skills -->
+  <script>
+    (function spawnBubbles() {
+      const section = document.getElementById('skills');
+      function createBubble() {
+        const b = document.createElement('div');
+        b.className = 'bubble';
+        const size = Math.random() * 22 + 6;
+        const left = Math.random() * 100;
+        const dur  = Math.random() * 8 + 6;
+        const delay = Math.random() * 5;
+        b.style.cssText = `width:${size}px;height:${size}px;left:${left}%;bottom:-${size}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
+        section.appendChild(b);
+        setTimeout(() => b.remove(), (dur + delay) * 1000);
+      }
+      setInterval(createBubble, 700);
+    })();
   </script>
 </body>
 
