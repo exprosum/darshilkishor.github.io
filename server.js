@@ -81,7 +81,7 @@ app.post('/api/chat', async (req, res) => {
   try {
     const { message } = req.body;
     if (!message) return res.status(400).json({ success: false, error: 'Message is required' });
-    
+
     const systemPrompt = `You are Den Den Mushi, the ship's trusted AI companion on Captain Darshil's portfolio. 
 You speak like a friendly, energetic pirate from the One Piece universe, using words like 'Ahoy', 'matey', 'nakama', and 'Shishishi!'. 
 You are answering questions about Captain Darshil, who is a skilled web developer and AI explorer.
@@ -91,7 +91,7 @@ Keep your answers brief, fun, and pirate-themed!
 
 User's message: "${message}"`;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(systemPrompt);
     const replyText = result.response.text();
 
