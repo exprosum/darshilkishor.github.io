@@ -1,7 +1,0 @@
-# Node.js Dependencies for Backend
-# Standard installation: npm install
-
-express
-mongoose
-cors
-dotenv
