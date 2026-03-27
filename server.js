@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const Message = require('./models/Message');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
+const crypto = require('crypto');
+
+// Simple in-memory token store
+const ADMIN_TOKEN = crypto.randomBytes(32).toString('hex');
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'DarshilAdmin2025';
 
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -27,6 +32,23 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Admin login endpoint
+app.post('/api/admin-login', (req, res) => {
+  const { password } = req.body;
+  if (password === ADMIN_PASSWORD) {
+    res.json({ success: true, token: ADMIN_TOKEN });
+  } else {
+    res.status(401).json({ success: false, error: 'Invalid password' });
+  }
+});
+
+// Admin auth middleware
+function requireAdmin(req, res, next) {
+  const token = req.headers['x-admin-token'] || req.query.token;
+  if (token === ADMIN_TOKEN) return next();
+  res.status(403).json({ success: false, error: 'Unauthorized' });
+}
+
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
@@ -44,7 +66,7 @@ app.post('/api/messages', async (req, res) => {
   }
 });
 
-app.get('/api/messages', async (req, res) => {
+app.get('/api/messages', requireAdmin, async (req, res) => {
   try {
     const messages = await Message.find().sort({ createdAt: -1 });
     res.status(200).json(messages);
@@ -55,7 +77,7 @@ app.get('/api/messages', async (req, res) => {
 });
 
 // Mark as read
-app.patch('/api/messages/:id/read', async (req, res) => {
+app.patch('/api/messages/:id/read', requireAdmin, async (req, res) => {
   try {
     const message = await Message.findByIdAndUpdate(req.params.id, { read: true }, { new: true });
     if (!message) return res.status(404).json({ success: false, error: 'Message not found' });
@@ -66,7 +88,7 @@ app.patch('/api/messages/:id/read', async (req, res) => {
 });
 
 // Delete message
-app.delete('/api/messages/:id', async (req, res) => {
+app.delete('/api/messages/:id', requireAdmin, async (req, res) => {
   try {
     const message = await Message.findByIdAndDelete(req.params.id);
     if (!message) return res.status(404).json({ success: false, error: 'Message not found' });
