@@ -698,7 +698,35 @@
 
     /* ── SKILLS ── */
     #skills {
-      background: var(--sky);
+      background: url('https://www.transparenttextures.com/patterns/aged-paper.png'), #ebdcb2;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #skills::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 150px rgba(139, 90, 43, 0.5);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #skills::before {
+      content: '☠️';
+      position: absolute;
+      font-size: 500px;
+      opacity: 0.04;
+      bottom: -150px;
+      right: -150px;
+      transform: rotate(-15deg);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    #skills .section-inner {
+      position: relative;
+      z-index: 1;
     }
 
     .skills-grid {
