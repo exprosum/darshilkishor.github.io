@@ -599,31 +599,40 @@
 
     /* ── ABOUT ── */
     #about {
-      background: url('https://www.transparenttextures.com/patterns/aged-paper.png'), linear-gradient(135deg, #f5e6c8 0%, #ecdbb0 50%, #e0c98a 100%);
+      background: linear-gradient(180deg, #1a8fd1 0%, #42b4e8 35%, #5ec8f5 60%, #a8dff7 100%);
       position: relative;
       overflow: hidden;
     }
-    #about::after {
+    /* Animated drifting clouds */
+    @keyframes driftCloud {
+      0%   { transform: translateX(0) translateY(0); }
+      50%  { transform: translateX(40px) translateY(-12px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+    .cloud {
+      position: absolute;
+      background: rgba(255,255,255,0.55);
+      border-radius: 50px;
+      pointer-events: none;
+      z-index: 0;
+      animation: driftCloud linear infinite;
+      filter: blur(2px);
+    }
+    .cloud::before, .cloud::after {
       content: '';
       position: absolute;
-      inset: 0;
-      box-shadow: inset 0 0 120px rgba(139, 90, 43, 0.3);
-      pointer-events: none;
-      z-index: 0;
-    }
-    /* Drifting map dots */
-    .about-particle {
-      position: absolute;
+      background: inherit;
       border-radius: 50%;
-      background: rgba(139, 90, 43, 0.2);
-      pointer-events: none;
-      z-index: 0;
-      animation: floatDeco 10s ease-in-out infinite;
     }
+    .cloud::before { width: 60%; height: 180%; top: -50%; left: 20%; }
+    .cloud::after  { width: 40%; height: 140%; top: -30%; right: 15%;}
     #about .section-inner { position: relative; z-index: 1; }
-    #about .section-title { color: #4a2c10; }
-    #about .section-label { color: #8b5a2b; }
-    #about .section-label::before { background: #8b5a2b; }
+    #about .section-title { color: #0a3a5c; text-shadow: 0 2px 10px rgba(255,255,255,0.4); }
+    #about .section-label { color: rgba(10, 58, 92, 0.8); }
+    #about .section-label::before { background: rgba(10,58,92,0.6); }
+    #about .about-text p { color: #0d3050; }
+    #about .about-text strong { color: #0a2540; }
+    #about .about-quote { background: rgba(255,255,255,0.35); border-left-color: #e8b84b; color: #0a3a5c; backdrop-filter: blur(4px); }
 
     .about-grid {
       display: grid;
@@ -893,27 +902,33 @@
       margin-top: 10px;
     }
 
-    /* ── MISSION ── */
+    /* ── MISSION (Cosmic Nebula) ── */
     #mission {
-      background: linear-gradient(160deg, #1a0a00 0%, #3d1500 40%, #6b2700 70%, #8b3a00 100%);
+      background: linear-gradient(135deg, #0d0526 0%, #1a0a4a 30%, #3a0d5a 55%, #5a1520 75%, #8b2200 100%);
       color: white;
       position: relative;
       overflow: hidden;
     }
-    /* Glowing embers */
+    /* Nebula glow */
     #mission::after {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 40% at 20% 50%, rgba(255, 120, 0, 0.15) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(255, 60, 0, 0.1) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 50% at 15% 40%, rgba(140, 60, 220, 0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 45% at 85% 60%, rgba(255, 100, 20, 0.25) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 35% at 55% 20%, rgba(255, 200, 50, 0.15) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
+      animation: nebulaShift 8s ease-in-out infinite alternate;
+    }
+    @keyframes nebulaShift {
+      0%   { opacity: 0.8; }
+      100% { opacity: 1; }
     }
     .mission-float {
       position: absolute;
-      opacity: 0.06;
+      opacity: 0.07;
       user-select: none;
       pointer-events: none;
       animation: floatDeco 9s ease-in-out infinite;
@@ -924,21 +939,23 @@
     .mission-float-2 { bottom: 10%; right: 4%; animation-delay: -3s; }
     .mission-float-3 { top: 40%; right: 10%; animation-delay: -5s; font-size: 60px; }
     #mission .section-inner { position: relative; z-index: 1; }
-    #mission .section-title { color: #ffb347; }
-    #mission .section-label { color: rgba(255, 179, 71, 0.7); }
-    #mission .section-label::before { background: rgba(255,179,71,0.5); }
+    #mission .section-title { color: #ffcc66; text-shadow: 0 0 20px rgba(255, 180, 0, 0.5); }
+    #mission .section-label { color: rgba(255, 200, 100, 0.7); }
+    #mission .section-label::before { background: rgba(255,200,100,0.5); }
     .mission-card {
-      background: rgba(255, 100, 0, 0.08);
-      border: 1px solid rgba(255, 140, 0, 0.25);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(200, 100, 255, 0.25);
+      backdrop-filter: blur(6px);
     }
     .mission-card:hover {
-      background: rgba(255, 100, 0, 0.18);
-      border-color: rgba(255, 180, 0, 0.6);
-      box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
+      background: rgba(200, 100, 255, 0.12);
+      border-color: rgba(220, 150, 255, 0.6);
+      box-shadow: 0 0 30px rgba(180, 80, 255, 0.25);
+      transform: translateY(-6px);
     }
-    .mission-card-title { color: #ffa040; }
-    .mission-items li { color: rgba(255,230,190,0.8); }
-    .mission-items li::before { color: #ffb347; }
+    .mission-card-title { color: #e8a0ff; }
+    .mission-items li { color: rgba(240,220,255,0.8); }
+    .mission-items li::before { color: #ffcc66; }
 
     .mission-grid {
       display: grid;
@@ -994,46 +1011,39 @@
       opacity: 0.6;
     }
 
-    /* ── PROJECTS ── */
+    /* ── PROJECTS (Golden Skypiea Island) ── */
     #projects {
-      background: linear-gradient(170deg, #0f0c1a 0%, #1a1030 50%, #241545 100%);
+      background: linear-gradient(175deg, #f5c842 0%, #e8a020 25%, #d4780a 55%, #a84b00 80%, #7a2d00 100%);
       position: relative;
       overflow: hidden;
     }
-    /* Twinkling stars */
+    /* Shimmering golden overlay */
     #projects::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
-        radial-gradient(1px 1px at 75% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 88% 75%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 42% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(2px 2px at 20% 45%, rgba(232,184,75,0.6) 0%, transparent 100%),
-        radial-gradient(2px 2px at 80% 25%, rgba(232,184,75,0.4) 0%, transparent 100%);
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,255,180,0.3) 0%, transparent 60%),
+        repeating-linear-gradient(30deg, transparent, transparent 40px, rgba(255,215,0,0.04) 40px, rgba(255,215,0,0.04) 41px);
       pointer-events: none;
-      animation: twinkle 4s ease-in-out infinite alternate;
+      animation: shimmer 6s ease-in-out infinite alternate;
       z-index: 0;
     }
     #projects::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(100, 50, 200, 0.1) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,0,0,0.4) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
-    @keyframes twinkle {
-      0% { opacity: 0.7; }
+    @keyframes shimmer {
+      0%   { opacity: 0.6; }
       100% { opacity: 1; }
     }
     .projects-float {
       position: absolute;
-      opacity: 0.06;
+      opacity: 0.1;
       user-select: none;
       pointer-events: none;
       animation: floatDeco 10s ease-in-out infinite;
@@ -1043,21 +1053,27 @@
     .projects-float-1 { top: 8%; left: 3%; animation-delay: 0s; }
     .projects-float-2 { bottom: 8%; right: 3%; animation-delay: -4s; }
     #projects .section-inner { position: relative; z-index: 1; }
-    #projects .section-title { color: var(--gold-light); }
-    #projects .section-label { color: rgba(232,184,75,0.7); }
-    #projects .section-label::before { background: rgba(232,184,75,0.5); }
+    #projects .section-title { color: #fff8e1; text-shadow: 0 2px 15px rgba(0,0,0,0.3); }
+    #projects .section-label { color: rgba(255,240,180,0.8); }
+    #projects .section-label::before { background: rgba(255,240,180,0.6); }
     .project-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(232,184,75,0.2);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      backdrop-filter: blur(8px);
     }
     .project-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 0 30px rgba(232,184,75,0.2), 0 24px 50px rgba(0,0,0,0.5);
-      border-color: rgba(232,184,75,0.6);
-      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 40px rgba(255,215,0,0.3), 0 24px 50px rgba(0,0,0,0.4);
+      border-color: rgba(255,215,0,0.7);
+      background: rgba(0, 0, 0, 0.35);
     }
-    .project-name { color: #f5d98b; }
-    .project-desc { color: rgba(255,255,255,0.65); }
+    .project-name { color: #ffe066; }
+    .project-desc { color: rgba(255,245,200,0.8); }
+    .ptag {
+      background: rgba(255,215,0,0.15);
+      color: #ffe066;
+      border-color: rgba(255,215,0,0.3);
+    }
 
     .projects-grid {
       display: grid;
@@ -1159,9 +1175,9 @@
       border: 1px solid rgba(232, 184, 75, 0.25);
     }
 
-    /* ── CONTACT ── */
+    /* ── CONTACT (Tropical Sky Island) ── */
     #contact {
-      background: linear-gradient(170deg, #0d1f2d 0%, #1a3a2a 40%, #1f3015 70%, #2a3a10 100%);
+      background: linear-gradient(170deg, #1a90d1 0%, #0e6fad 30%, #0a5a8e 55%, #06446e 80%, #032d4e 100%);
       position: relative;
       overflow: hidden;
     }
@@ -1170,14 +1186,14 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 50% 50% at 10% 60%, rgba(50, 200, 100, 0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 90% 30%, rgba(232, 184, 75, 0.08) 0%, transparent 70%);
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(180,230,255,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 20% 80%, rgba(0,180,100,0.1) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
     }
     .contact-float {
       position: absolute;
-      opacity: 0.05;
+      opacity: 0.07;
       user-select: none;
       pointer-events: none;
       animation: floatDeco 9s ease-in-out infinite;
@@ -1187,20 +1203,22 @@
     .contact-float-1 { top: 10%; left: 3%; animation-delay: 0s; }
     .contact-float-2 { bottom: 10%; right: 3%; animation-delay: -4s; }
     #contact .section-inner { position: relative; z-index: 1; }
-    #contact .section-title { color: #90e8a0; }
-    #contact .section-label { color: rgba(144, 232, 160, 0.7); }
-    #contact .section-label::before { background: rgba(144, 232, 160, 0.5); }
-    #contact .contact-info-title { color: #b8f0c0; }
-    #contact .contact-info-text { color: rgba(200, 240, 210, 0.75); }
+    #contact .section-title { color: #e0f5ff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+    #contact .section-label { color: rgba(180,230,255,0.8); }
+    #contact .section-label::before { background: rgba(180,230,255,0.5); }
+    #contact .contact-info-title { color: #c8eeff; }
+    #contact .contact-info-text { color: rgba(200,235,255,0.75); }
     #contact .social-link {
-      background: rgba(50, 120, 60, 0.2);
-      border-color: rgba(100, 200, 120, 0.25);
-      color: rgba(200, 240, 210, 0.85);
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(180,230,255,0.25);
+      color: rgba(220,245,255,0.85);
+      backdrop-filter: blur(4px);
     }
     #contact .social-link:hover {
-      border-color: rgba(144, 232, 160, 0.7);
-      background: rgba(50, 150, 70, 0.3);
-      color: #90e8a0;
+      border-color: rgba(200,240,255,0.7);
+      background: rgba(255,255,255,0.2);
+      color: #e0f5ff;
+      box-shadow: 0 0 20px rgba(100,200,255,0.2);
     }
 
     .contact-grid {
@@ -1852,9 +1870,10 @@
 
   <!-- ABOUT -->
   <section id="about">
-    <span class="about-particle" style="width:80px;height:80px;top:15%;left:8%;animation-delay:0s;"></span>
-    <span class="about-particle" style="width:50px;height:50px;top:60%;right:6%;animation-delay:-3s;"></span>
-    <span class="about-particle" style="width:30px;height:30px;bottom:20%;left:30%;animation-delay:-5s;"></span>
+    <div class="cloud" style="width:200px;height:60px;top:12%;left:5%;animation-duration:16s;"></div>
+    <div class="cloud" style="width:140px;height:45px;top:25%;right:8%;animation-duration:12s;animation-delay:-4s;"></div>
+    <div class="cloud" style="width:100px;height:35px;bottom:20%;left:20%;animation-duration:20s;animation-delay:-8s;"></div>
+    <div class="cloud" style="width:180px;height:55px;top:60%;right:15%;animation-duration:14s;animation-delay:-6s;"></div>
     <div class="section-inner">
       <div class="about-grid">
         <div class="about-map reveal">
