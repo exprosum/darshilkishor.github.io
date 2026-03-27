@@ -91,7 +91,7 @@ Keep your answers brief, fun, and pirate-themed!
 
 User's message: "${message}"`;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
     const result = await model.generateContent(systemPrompt);
     const replyText = result.response.text();
 
