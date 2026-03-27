@@ -8,7 +8,8 @@ const crypto = require('crypto');
 
 // Simple in-memory token store
 const ADMIN_TOKEN = crypto.randomBytes(32).toString('hex');
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'DarshilAdmin2025';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'darshilll123';
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'exprosum';
 
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -34,11 +35,11 @@ app.get('/', (req, res) => {
 
 // Admin login endpoint
 app.post('/api/admin-login', (req, res) => {
-  const { password } = req.body;
-  if (password === ADMIN_PASSWORD) {
+  const { username, password } = req.body;
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     res.json({ success: true, token: ADMIN_TOKEN });
   } else {
-    res.status(401).json({ success: false, error: 'Invalid password' });
+    res.status(401).json({ success: false, error: 'Invalid credentials' });
   }
 });
 

@@ -262,6 +262,7 @@
     <div class="login-skull">☠️</div>
     <div class="login-title">Captain's Den</div>
     <div class="login-sub">Enter the secret password to access your admin log</div>
+    <input id="login-username" class="login-input" type="text" placeholder="USERNAME" style="letter-spacing:2px;margin-bottom:10px;" />
     <input id="login-password" class="login-input" type="password" placeholder="••••••••" />
     <button class="login-btn" onclick="attemptLogin()">Board the Ship</button>
     <div class="login-error" id="login-error"></div>
@@ -302,13 +303,14 @@
 let ADMIN_TOKEN = sessionStorage.getItem('adminToken');
 
 async function attemptLogin() {
+  const username = document.getElementById('login-username').value;
   const password = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
   try {
     const res = await fetch('/api/admin-login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password })
+      body: JSON.stringify({ username, password })
     });
     const data = await res.json();
     if (data.success) {
