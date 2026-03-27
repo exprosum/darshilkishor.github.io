@@ -599,40 +599,8 @@
 
     /* ── ABOUT ── */
     #about {
-      background: linear-gradient(180deg, #1a8fd1 0%, #42b4e8 35%, #5ec8f5 60%, #a8dff7 100%);
-      position: relative;
-      overflow: hidden;
+      background: var(--cream);
     }
-    /* Animated drifting clouds */
-    @keyframes driftCloud {
-      0%   { transform: translateX(0) translateY(0); }
-      50%  { transform: translateX(40px) translateY(-12px); }
-      100% { transform: translateX(0) translateY(0); }
-    }
-    .cloud {
-      position: absolute;
-      background: rgba(255,255,255,0.55);
-      border-radius: 50px;
-      pointer-events: none;
-      z-index: 0;
-      animation: driftCloud linear infinite;
-      filter: blur(2px);
-    }
-    .cloud::before, .cloud::after {
-      content: '';
-      position: absolute;
-      background: inherit;
-      border-radius: 50%;
-    }
-    .cloud::before { width: 60%; height: 180%; top: -50%; left: 20%; }
-    .cloud::after  { width: 40%; height: 140%; top: -30%; right: 15%;}
-    #about .section-inner { position: relative; z-index: 1; }
-    #about .section-title { color: #0a3a5c; text-shadow: 0 2px 10px rgba(255,255,255,0.4); }
-    #about .section-label { color: rgba(10, 58, 92, 0.8); }
-    #about .section-label::before { background: rgba(10,58,92,0.6); }
-    #about .about-text p { color: #0d3050; }
-    #about .about-text strong { color: #0a2540; }
-    #about .about-quote { background: rgba(255,255,255,0.35); border-left-color: #e8b84b; color: #0a3a5c; backdrop-filter: blur(4px); }
 
     .about-grid {
       display: grid;
@@ -730,74 +698,15 @@
 
     /* ── SKILLS ── */
     #skills {
-      background: linear-gradient(180deg, #051a1a 0%, #0a2e2e 40%, #0d4040 70%, #115252 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Wave top border */
-    #skills::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: 0;
-      right: 0;
-      height: 80px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath d='M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 L0,0 Z' fill='%23fdf6e3'/%3E%3C/svg%3E") no-repeat center;
-      background-size: cover;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* Radial teal glow at center */
-    #skills::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 80%, rgba(0, 180, 150, 0.12) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Floating decorations (reused floatDeco animation) */
-    .skills-float {
-      position: absolute;
-      opacity: 0.06;
-      user-select: none;
-      pointer-events: none;
-      animation: floatDeco 8s ease-in-out infinite;
-      z-index: 0;
-      font-size: clamp(60px, 8vw, 110px);
-    }
-    .skills-float-1 { top: 15%; left: 3%; animation-delay: 0s; }
-    .skills-float-2 { top: 20%; right: 5%; animation-delay: -2.5s; font-size: 80px; }
-    .skills-float-3 { bottom: 15%; left: 5%; animation-delay: -4s; font-size: 70px; }
-    .skills-float-4 { bottom: 10%; right: 4%; animation-delay: -1.5s; }
-    .skills-float-5 { top: 50%; left: 46%; animation-delay: -3s; font-size: 55px; opacity: 0.03; }
-
-    /* Rising bubble animation */
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(0, 210, 180, 0.15);
-      border: 1px solid rgba(0, 210, 180, 0.3);
-      animation: riseUp linear infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-    @keyframes riseUp {
-      0%   { transform: translateY(0) scale(1); opacity: 0.6; }
-      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+      background: var(--sky);
     }
 
     #skills .section-inner {
-      position: relative;
-      z-index: 1;
       padding-top: 60px;
     }
-    #skills .section-title { color: #7ee8d6; }
-    #skills .section-label { color: rgba(126, 232, 214, 0.7); }
-    #skills .section-label::before { background: rgba(126, 232, 214, 0.5); }
+    #skills .section-title { color: var(--ocean); }
+    #skills .section-label { color: var(--gold); }
+    #skills .section-label::before { background: var(--gold); }
 
     .skills-grid {
       display: grid;
@@ -806,14 +715,13 @@
     }
 
     .skill-card {
-      background: rgba(0, 80, 70, 0.35);
-      border: 1px solid rgba(0, 200, 160, 0.3);
+      background: white;
+      border: 1px solid rgba(26, 58, 92, 0.1);
       border-radius: 12px;
       padding: 28px;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(8px);
     }
 
     .skill-card::before {
@@ -831,9 +739,7 @@
 
     .skill-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 0 30px rgba(0, 200, 160, 0.3), 0 20px 40px rgba(0,0,0,0.4);
-      border-color: rgba(0, 210, 180, 0.7);
-      background: rgba(0, 100, 85, 0.4);
+      box-shadow: 0 20px 40px rgba(26, 58, 92, 0.12);
     }
 
     .skill-card:hover::before {
@@ -849,32 +755,23 @@
       font-family: 'Cinzel', serif;
       font-size: 15px;
       font-weight: 700;
-      color: #7ee8d6;
+      color: var(--ocean);
       margin-bottom: 8px;
     }
 
     .skill-desc {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.65);
+      color: var(--text-mid);
       line-height: 1.6;
       margin-bottom: 16px;
     }
 
     .skill-bar {
       height: 4px;
-      background: rgba(0, 210, 180, 0.12);
+      background: rgba(26, 58, 92, 0.1);
       border-radius: 2px;
       overflow: hidden;
     }
-    .skill-fill {
-      height: 100%;
-      border-radius: 2px;
-      background: linear-gradient(90deg, #00c896, #7ee8d6);
-      animation: fillBar 1.5s ease forwards;
-      transform-origin: left;
-      transform: scaleX(0);
-    }
-
     .skill-fill {
       height: 100%;
       border-radius: 2px;
@@ -902,60 +799,16 @@
       margin-top: 10px;
     }
 
-    /* ── MISSION (Cosmic Nebula) ── */
+    /* ── MISSION ── */
     #mission {
-      background: linear-gradient(135deg, #0d0526 0%, #1a0a4a 30%, #3a0d5a 55%, #5a1520 75%, #8b2200 100%);
+      background: linear-gradient(160deg, var(--deep-ocean), var(--ocean));
       color: white;
       position: relative;
       overflow: hidden;
     }
-    /* Nebula glow */
-    #mission::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 15% 40%, rgba(140, 60, 220, 0.3) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 45% at 85% 60%, rgba(255, 100, 20, 0.25) 0%, transparent 65%),
-        radial-gradient(ellipse 35% 35% at 55% 20%, rgba(255, 200, 50, 0.15) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-      animation: nebulaShift 8s ease-in-out infinite alternate;
-    }
-    @keyframes nebulaShift {
-      0%   { opacity: 0.8; }
-      100% { opacity: 1; }
-    }
-    .mission-float {
-      position: absolute;
-      opacity: 0.07;
-      user-select: none;
-      pointer-events: none;
-      animation: floatDeco 9s ease-in-out infinite;
-      z-index: 0;
-      font-size: clamp(60px, 7vw, 100px);
-    }
-    .mission-float-1 { top: 10%; left: 4%; animation-delay: 0s; }
-    .mission-float-2 { bottom: 10%; right: 4%; animation-delay: -3s; }
-    .mission-float-3 { top: 40%; right: 10%; animation-delay: -5s; font-size: 60px; }
-    #mission .section-inner { position: relative; z-index: 1; }
-    #mission .section-title { color: #ffcc66; text-shadow: 0 0 20px rgba(255, 180, 0, 0.5); }
-    #mission .section-label { color: rgba(255, 200, 100, 0.7); }
-    #mission .section-label::before { background: rgba(255,200,100,0.5); }
-    .mission-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(200, 100, 255, 0.25);
-      backdrop-filter: blur(6px);
-    }
-    .mission-card:hover {
-      background: rgba(200, 100, 255, 0.12);
-      border-color: rgba(220, 150, 255, 0.6);
-      box-shadow: 0 0 30px rgba(180, 80, 255, 0.25);
-      transform: translateY(-6px);
-    }
-    .mission-card-title { color: #e8a0ff; }
-    .mission-items li { color: rgba(240,220,255,0.8); }
-    .mission-items li::before { color: #ffcc66; }
+    #mission .section-title { color: white; }
+    #mission .section-label { color: rgba(232,184,75,0.7); }
+    #mission .section-label::before { background: rgba(232,184,75,0.5); }
 
     .mission-grid {
       display: grid;
@@ -1011,68 +864,9 @@
       opacity: 0.6;
     }
 
-    /* ── PROJECTS (Golden Skypiea Island) ── */
+    /* ── PROJECTS ── */
     #projects {
-      background: linear-gradient(175deg, #f5c842 0%, #e8a020 25%, #d4780a 55%, #a84b00 80%, #7a2d00 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    /* Shimmering golden overlay */
-    #projects::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,255,180,0.3) 0%, transparent 60%),
-        repeating-linear-gradient(30deg, transparent, transparent 40px, rgba(255,215,0,0.04) 40px, rgba(255,215,0,0.04) 41px);
-      pointer-events: none;
-      animation: shimmer 6s ease-in-out infinite alternate;
-      z-index: 0;
-    }
-    #projects::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,0,0,0.4) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    @keyframes shimmer {
-      0%   { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
-    .projects-float {
-      position: absolute;
-      opacity: 0.1;
-      user-select: none;
-      pointer-events: none;
-      animation: floatDeco 10s ease-in-out infinite;
-      z-index: 0;
-      font-size: clamp(60px, 7vw, 100px);
-    }
-    .projects-float-1 { top: 8%; left: 3%; animation-delay: 0s; }
-    .projects-float-2 { bottom: 8%; right: 3%; animation-delay: -4s; }
-    #projects .section-inner { position: relative; z-index: 1; }
-    #projects .section-title { color: #fff8e1; text-shadow: 0 2px 15px rgba(0,0,0,0.3); }
-    #projects .section-label { color: rgba(255,240,180,0.8); }
-    #projects .section-label::before { background: rgba(255,240,180,0.6); }
-    .project-card {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      backdrop-filter: blur(8px);
-    }
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 40px rgba(255,215,0,0.3), 0 24px 50px rgba(0,0,0,0.4);
-      border-color: rgba(255,215,0,0.7);
-      background: rgba(0, 0, 0, 0.35);
-    }
-    .project-name { color: #ffe066; }
-    .project-desc { color: rgba(255,245,200,0.8); }
-    .ptag {
-      background: rgba(255,215,0,0.15);
-      color: #ffe066;
-      border-color: rgba(255,215,0,0.3);
+      background: var(--cream);
     }
 
     .projects-grid {
@@ -1870,10 +1664,6 @@
 
   <!-- ABOUT -->
   <section id="about">
-    <div class="cloud" style="width:200px;height:60px;top:12%;left:5%;animation-duration:16s;"></div>
-    <div class="cloud" style="width:140px;height:45px;top:25%;right:8%;animation-duration:12s;animation-delay:-4s;"></div>
-    <div class="cloud" style="width:100px;height:35px;bottom:20%;left:20%;animation-duration:20s;animation-delay:-8s;"></div>
-    <div class="cloud" style="width:180px;height:55px;top:60%;right:15%;animation-duration:14s;animation-delay:-6s;"></div>
     <div class="section-inner">
       <div class="about-grid">
         <div class="about-map reveal">
@@ -1921,11 +1711,6 @@
 
   <!-- SKILLS -->
   <section id="skills">
-    <span class="skills-float skills-float-1">⚓</span>
-    <span class="skills-float skills-float-2">🌊</span>
-    <span class="skills-float skills-float-3">🗺️</span>
-    <span class="skills-float skills-float-4">⚔️</span>
-    <span class="skills-float skills-float-5">☠️</span>
     <div class="section-inner">
       <div class="section-label">My Weapons</div>
       <h2 class="section-title">Armory</h2>
@@ -2008,9 +1793,6 @@
 
   <!-- MISSION -->
   <section id="mission">
-    <span class="mission-float mission-float-1">🔥</span>
-    <span class="mission-float mission-float-2">⚔️</span>
-    <span class="mission-float mission-float-3">🏴‍☠️</span>
     <div class="section-inner">
       <div class="section-label" style="color:rgba(232,184,75,0.7)">Current Quest</div>
       <h2 class="section-title">Current Mission</h2>
@@ -2048,8 +1830,6 @@
 
   <!-- PROJECTS -->
   <section id="projects">
-    <span class="projects-float projects-float-1">💰</span>
-    <span class="projects-float projects-float-2">🗺️</span>
     <div class="section-inner">
       <div class="section-label">My Adventures</div>
       <h2 class="section-title">Treasure Log</h2>
