@@ -599,8 +599,31 @@
 
     /* ── ABOUT ── */
     #about {
-      background: var(--cream);
+      background: url('https://www.transparenttextures.com/patterns/aged-paper.png'), linear-gradient(135deg, #f5e6c8 0%, #ecdbb0 50%, #e0c98a 100%);
+      position: relative;
+      overflow: hidden;
     }
+    #about::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 120px rgba(139, 90, 43, 0.3);
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Drifting map dots */
+    .about-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(139, 90, 43, 0.2);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatDeco 10s ease-in-out infinite;
+    }
+    #about .section-inner { position: relative; z-index: 1; }
+    #about .section-title { color: #4a2c10; }
+    #about .section-label { color: #8b5a2b; }
+    #about .section-label::before { background: #8b5a2b; }
 
     .about-grid {
       display: grid;
@@ -872,13 +895,50 @@
 
     /* ── MISSION ── */
     #mission {
-      background: linear-gradient(160deg, var(--deep-ocean), var(--ocean));
+      background: linear-gradient(160deg, #1a0a00 0%, #3d1500 40%, #6b2700 70%, #8b3a00 100%);
       color: white;
+      position: relative;
+      overflow: hidden;
     }
-
-    #mission .section-title {
-      color: white;
+    /* Glowing embers */
+    #mission::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 50%, rgba(255, 120, 0, 0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(255, 60, 0, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
+    .mission-float {
+      position: absolute;
+      opacity: 0.06;
+      user-select: none;
+      pointer-events: none;
+      animation: floatDeco 9s ease-in-out infinite;
+      z-index: 0;
+      font-size: clamp(60px, 7vw, 100px);
+    }
+    .mission-float-1 { top: 10%; left: 4%; animation-delay: 0s; }
+    .mission-float-2 { bottom: 10%; right: 4%; animation-delay: -3s; }
+    .mission-float-3 { top: 40%; right: 10%; animation-delay: -5s; font-size: 60px; }
+    #mission .section-inner { position: relative; z-index: 1; }
+    #mission .section-title { color: #ffb347; }
+    #mission .section-label { color: rgba(255, 179, 71, 0.7); }
+    #mission .section-label::before { background: rgba(255,179,71,0.5); }
+    .mission-card {
+      background: rgba(255, 100, 0, 0.08);
+      border: 1px solid rgba(255, 140, 0, 0.25);
+    }
+    .mission-card:hover {
+      background: rgba(255, 100, 0, 0.18);
+      border-color: rgba(255, 180, 0, 0.6);
+      box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
+    }
+    .mission-card-title { color: #ffa040; }
+    .mission-items li { color: rgba(255,230,190,0.8); }
+    .mission-items li::before { color: #ffb347; }
 
     .mission-grid {
       display: grid;
@@ -936,8 +996,68 @@
 
     /* ── PROJECTS ── */
     #projects {
-      background: var(--cream);
+      background: linear-gradient(170deg, #0f0c1a 0%, #1a1030 50%, #241545 100%);
+      position: relative;
+      overflow: hidden;
     }
+    /* Twinkling stars */
+    #projects::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 75%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 42% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(2px 2px at 20% 45%, rgba(232,184,75,0.6) 0%, transparent 100%),
+        radial-gradient(2px 2px at 80% 25%, rgba(232,184,75,0.4) 0%, transparent 100%);
+      pointer-events: none;
+      animation: twinkle 4s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    #projects::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(100, 50, 200, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    .projects-float {
+      position: absolute;
+      opacity: 0.06;
+      user-select: none;
+      pointer-events: none;
+      animation: floatDeco 10s ease-in-out infinite;
+      z-index: 0;
+      font-size: clamp(60px, 7vw, 100px);
+    }
+    .projects-float-1 { top: 8%; left: 3%; animation-delay: 0s; }
+    .projects-float-2 { bottom: 8%; right: 3%; animation-delay: -4s; }
+    #projects .section-inner { position: relative; z-index: 1; }
+    #projects .section-title { color: var(--gold-light); }
+    #projects .section-label { color: rgba(232,184,75,0.7); }
+    #projects .section-label::before { background: rgba(232,184,75,0.5); }
+    .project-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(232,184,75,0.2);
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px rgba(232,184,75,0.2), 0 24px 50px rgba(0,0,0,0.5);
+      border-color: rgba(232,184,75,0.6);
+      background: rgba(255,255,255,0.08);
+    }
+    .project-name { color: #f5d98b; }
+    .project-desc { color: rgba(255,255,255,0.65); }
 
     .projects-grid {
       display: grid;
@@ -1034,15 +1154,53 @@
       letter-spacing: 1px;
       padding: 4px 12px;
       border-radius: 20px;
-      background: rgba(26, 58, 92, 0.06);
-      color: var(--ocean);
-      border: 1px solid rgba(26, 58, 92, 0.12);
+      background: rgba(232, 184, 75, 0.1);
+      color: #f5d98b;
+      border: 1px solid rgba(232, 184, 75, 0.25);
     }
 
     /* ── CONTACT ── */
     #contact {
-      background: linear-gradient(160deg, #fdf6e3, #f0e0b8);
+      background: linear-gradient(170deg, #0d1f2d 0%, #1a3a2a 40%, #1f3015 70%, #2a3a10 100%);
       position: relative;
+      overflow: hidden;
+    }
+    #contact::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 50% at 10% 60%, rgba(50, 200, 100, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 30%, rgba(232, 184, 75, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .contact-float {
+      position: absolute;
+      opacity: 0.05;
+      user-select: none;
+      pointer-events: none;
+      animation: floatDeco 9s ease-in-out infinite;
+      z-index: 0;
+      font-size: clamp(60px, 7vw, 100px);
+    }
+    .contact-float-1 { top: 10%; left: 3%; animation-delay: 0s; }
+    .contact-float-2 { bottom: 10%; right: 3%; animation-delay: -4s; }
+    #contact .section-inner { position: relative; z-index: 1; }
+    #contact .section-title { color: #90e8a0; }
+    #contact .section-label { color: rgba(144, 232, 160, 0.7); }
+    #contact .section-label::before { background: rgba(144, 232, 160, 0.5); }
+    #contact .contact-info-title { color: #b8f0c0; }
+    #contact .contact-info-text { color: rgba(200, 240, 210, 0.75); }
+    #contact .social-link {
+      background: rgba(50, 120, 60, 0.2);
+      border-color: rgba(100, 200, 120, 0.25);
+      color: rgba(200, 240, 210, 0.85);
+    }
+    #contact .social-link:hover {
+      border-color: rgba(144, 232, 160, 0.7);
+      background: rgba(50, 150, 70, 0.3);
+      color: #90e8a0;
     }
 
     .contact-grid {
@@ -1694,6 +1852,9 @@
 
   <!-- ABOUT -->
   <section id="about">
+    <span class="about-particle" style="width:80px;height:80px;top:15%;left:8%;animation-delay:0s;"></span>
+    <span class="about-particle" style="width:50px;height:50px;top:60%;right:6%;animation-delay:-3s;"></span>
+    <span class="about-particle" style="width:30px;height:30px;bottom:20%;left:30%;animation-delay:-5s;"></span>
     <div class="section-inner">
       <div class="about-grid">
         <div class="about-map reveal">
@@ -1828,6 +1989,9 @@
 
   <!-- MISSION -->
   <section id="mission">
+    <span class="mission-float mission-float-1">🔥</span>
+    <span class="mission-float mission-float-2">⚔️</span>
+    <span class="mission-float mission-float-3">🏴‍☠️</span>
     <div class="section-inner">
       <div class="section-label" style="color:rgba(232,184,75,0.7)">Current Quest</div>
       <h2 class="section-title">Current Mission</h2>
@@ -1865,6 +2029,8 @@
 
   <!-- PROJECTS -->
   <section id="projects">
+    <span class="projects-float projects-float-1">💰</span>
+    <span class="projects-float projects-float-2">🗺️</span>
     <div class="section-inner">
       <div class="section-label">My Adventures</div>
       <h2 class="section-title">Treasure Log</h2>
@@ -1923,6 +2089,8 @@
 
   <!-- CONTACT -->
   <section id="contact">
+    <span class="contact-float contact-float-1">✉️</span>
+    <span class="contact-float contact-float-2">🌴</span>
     <div class="section-inner">
       <div class="contact-grid">
         <div class="reveal">
