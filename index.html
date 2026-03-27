@@ -698,35 +698,47 @@
 
     /* ── SKILLS ── */
     #skills {
-      background: url('https://www.transparenttextures.com/patterns/aged-paper.png'), #ebdcb2;
+      background: linear-gradient(160deg, var(--deep-ocean) 0%, var(--ocean) 50%, #1e5f7a 100%);
       position: relative;
       overflow: hidden;
     }
 
+    /* Grid map overlay */
     #skills::after {
       content: '';
       position: absolute;
       inset: 0;
-      box-shadow: inset 0 0 150px rgba(139, 90, 43, 0.5);
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.025) 60px, rgba(255,255,255,0.025) 61px),
+        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.025) 60px, rgba(255,255,255,0.025) 61px);
       pointer-events: none;
       z-index: 0;
     }
 
-    #skills::before {
-      content: '☠️';
+    /* Floating pirate elements */
+    .skills-float {
       position: absolute;
-      font-size: 500px;
-      opacity: 0.04;
-      bottom: -150px;
-      right: -150px;
-      transform: rotate(-15deg);
+      opacity: 0.08;
+      user-select: none;
       pointer-events: none;
+      animation: floatDeco 8s ease-in-out infinite;
       z-index: 0;
+      font-size: clamp(60px, 8vw, 110px);
     }
-    
+    .skills-float-1 { top: 5%; left: 3%; animation-delay: 0s; }
+    .skills-float-2 { top: 10%; right: 5%; animation-delay: -2.5s; font-size: 80px; }
+    .skills-float-3 { bottom: 10%; left: 5%; animation-delay: -4s; font-size: 70px; }
+    .skills-float-4 { bottom: 5%; right: 3%; animation-delay: -1.5s; }
+    .skills-float-5 { top: 45%; left: 48%; animation-delay: -3s; font-size: 60px; opacity: 0.04; }
+
     #skills .section-inner {
       position: relative;
       z-index: 1;
+    }
+
+    /* Section label/title override for dark bg */
+    #skills .section-title {
+      color: white;
     }
 
     .skills-grid {
@@ -736,13 +748,14 @@
     }
 
     .skill-card {
-      background: white;
-      border: 1px solid rgba(26, 58, 92, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(232, 184, 75, 0.25);
       border-radius: 12px;
       padding: 28px;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(6px);
     }
 
     .skill-card::before {
@@ -760,7 +773,9 @@
 
     .skill-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(26, 58, 92, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(232, 184, 75, 0.6);
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .skill-card:hover::before {
@@ -776,20 +791,20 @@
       font-family: 'Cinzel', serif;
       font-size: 15px;
       font-weight: 700;
-      color: var(--ocean);
+      color: var(--gold-light);
       margin-bottom: 8px;
     }
 
     .skill-desc {
       font-size: 14px;
-      color: var(--text-mid);
+      color: rgba(255, 255, 255, 0.65);
       line-height: 1.6;
       margin-bottom: 16px;
     }
 
     .skill-bar {
       height: 4px;
-      background: rgba(26, 58, 92, 0.1);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 2px;
       overflow: hidden;
     }
@@ -1692,6 +1707,11 @@
 
   <!-- SKILLS -->
   <section id="skills">
+    <span class="skills-float skills-float-1">⚓</span>
+    <span class="skills-float skills-float-2">🌊</span>
+    <span class="skills-float skills-float-3">🗺️</span>
+    <span class="skills-float skills-float-4">⚔️</span>
+    <span class="skills-float skills-float-5">☠️</span>
     <div class="section-inner">
       <div class="section-label">My Weapons</div>
       <h2 class="section-title">Armory</h2>
